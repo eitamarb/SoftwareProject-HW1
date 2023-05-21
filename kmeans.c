@@ -24,7 +24,7 @@ Data calc_vector(const char *input_line, int line_size, int vector_size) {
     if (curr_vector == NULL)
     {
         printf("\nAn Error Has Occurred\n");
-        exit(0);
+        exit(1);
     }
     vector_entrance = (char *) calloc(1, sizeof(char));
     for (i = 0; i < line_size; i++) {
@@ -34,7 +34,7 @@ Data calc_vector(const char *input_line, int line_size, int vector_size) {
             if (vector_entrance == NULL)
             {
                 printf("\nAn Error Has Occurred\n");
-                exit(0);
+                exit(1);
             }
             for (j = 0; j < entrance_length; j++) { /* copy the current vector entrance */
                 vector_entrance[j] = input_line[start + j];
@@ -64,7 +64,7 @@ Link initialize_linked_list(char *input_line, int vector_size, int line_size) {
     if (head == NULL)
     {
         printf("\nAn Error Has Occurred\n");
-        exit(0);
+        exit(1);
     }
     head->d = calc_vector(input_line, line_size, vector_size);
     head->next = NULL;
@@ -76,7 +76,7 @@ void link_next_line(Link curr_element, char *input_line, int vector_size, int li
     if (next_element == NULL)
     {
         printf("\nAn Error Has Occurred\n");
-        exit(0);
+        exit(1);
     }
     next_element->d = calc_vector(input_line, line_size, vector_size);
     next_element->next = NULL;
@@ -91,7 +91,7 @@ Data *list_to_matrix(Link head, int n, int vector_size) { /* n = the total numbe
     a = (Data *) calloc(n, sizeof(Data));               /* initialize an array that represents the rows of the matrix */
     if (a == NULL || p == NULL) {
         printf("\nAn Error Has Occurred\n");
-        exit(0);
+        exit(1);
     }
     for (i = 0; i < n; i++) {
         a[i] = p + i * vector_size; /* a[i] = the memory address of the first entrance of the i'th vector */
@@ -124,7 +124,7 @@ Data *handle_stream(const char *file_name) {
     file = fopen(file_name, "r");
     if (file == NULL) {
         printf("\nAn Error Has Occurred\n");
-        exit(0);
+        exit(1);
     }
     while ((read = getline(&input_line, &line_size, file)) != -1) {
         if (counter == 0) {
@@ -181,7 +181,7 @@ void add_to_cluster(cluster **clusters, int *cluster_members_counter_copy, int i
     Data vector_copy = (Data) malloc(vector_size * sizeof(double)); /* allocate memory for vector_copy */
     if (vector_copy == NULL) {
         printf("\nAn Error Has Occurred\n");
-        exit(0);
+        exit(1);
     }
     for (i = 0; i < vector_size; i++) {
         vector_copy[i] = vector[i]; /* copy vector values to vector_copy */
@@ -274,7 +274,7 @@ int main(int argc, char *argv[]) {
         if (clusters[i]->members == NULL)
         {
             printf("\nAn Error Has Occurred\n");
-            exit(0);
+            exit(1);
         }
     }
     while (iterations > 0 && !valid) { /* line 67 on python file */
@@ -287,7 +287,7 @@ int main(int argc, char *argv[]) {
         if (cluster_members_counter == NULL || cluster_members_counter_copy == NULL)
         {
             printf("\nAn Error Has Occurred\n");
-            exit(0);
+            exit(1);
         }
         set_cluster_members_counters(clusters, matrix, cluster_members_counter, cluster_members_counter_copy);
         allocate_memory_for_cluster_members(clusters, cluster_members_counter);
